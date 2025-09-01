@@ -1,0 +1,372 @@
+<div class="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white">
+  <!-- Navigation -->
+  <nav
+    class="fixed top-0 left-0 right-0 z-50 bg-slate-900/95 backdrop-blur-sm border-b border-slate-700"
+  >
+    <div class="max-w-6xl mx-auto px-6 py-4">
+      <div class="flex justify-between items-center">
+        <div
+          class="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-emerald-400"
+        >
+          Olumide Ekundayo
+        </div>
+
+        <!-- Desktop Menu -->
+        <div class="hidden md:flex space-x-8">
+          @for (section of ['hero', 'about', 'experience', 'skills', 'contact']; track section) {
+          <button
+            (click)="scrollToSection(section)"
+            class="px-4 py-2 rounded-lg transition-all duration-300 capitalize"
+            [class.bg-blue-600]="activeSection() === section"
+            [class.text-white]="activeSection() === section"
+            [class.text-slate-300]="activeSection() !== section"
+            [class.hover\:text-white]="true"
+            [class.hover\:bg-slate-800]="true"
+          >
+            {{ section }}
+          </button>
+          }
+        </div>
+
+        <!-- Mobile Menu Button -->
+        <button
+          (click)="isMenuOpen.set(!isMenuOpen())"
+          class="md:hidden p-2 rounded-lg hover:bg-slate-800"
+        >
+          @if (isMenuOpen()) {
+          <span class="text-white">X</span>
+          } @else {
+          <span class="text-white">☰</span>
+          }
+        </button>
+      </div>
+
+      <!-- Mobile Menu -->
+      @if (isMenuOpen()) {
+      <div class="md:hidden mt-4 pb-4 border-t border-slate-700 pt-4">
+        @for (section of ['hero', 'about', 'experience', 'skills', 'contact']; track section) {
+        <button
+          (click)="scrollToSection(section)"
+          class="block w-full text-left px-4 py-3 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800 capitalize transition-colors"
+        >
+          {{ section }}
+        </button>
+        }
+      </div>
+      }
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section id="hero" class="min-h-screen flex items-center justify-center px-6 pt-20">
+    <div
+      class="max-w-4xl mx-auto text-center transition-all duration-1000"
+      [class.opacity-100]="isVisible()"
+      [class.translate-y-0]="isVisible()"
+      [class.opacity-0]="!isVisible()"
+      [class.translate-y-10]="!isVisible()"
+    >
+      <div class="relative mb-8">
+        <div
+          class="w-40 h-40 mx-auto rounded-full bg-gradient-to-br from-blue-500 to-emerald-500 flex items-center justify-center text-6xl font-bold mb-6"
+        >
+          OE
+        </div>
+        <div
+          class="absolute inset-0 w-40 h-40 mx-auto rounded-full bg-gradient-to-br from-blue-500 to-emerald-500 blur-xl opacity-20"
+        ></div>
+      </div>
+
+      <h1 class="text-5xl md:text-7xl font-bold mb-6">
+        <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-emerald-400">
+          Software Engineer
+        </span>
+      </h1>
+
+      <p class="text-xl md:text-2xl text-slate-300 mb-8 leading-relaxed">
+        5+ years of experience building scalable web applications with Angular & Node.js
+      </p>
+
+      <div class="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
+        <div class="flex items-center text-slate-300">📍 Lagos, Nigeria</div>
+        <div class="flex items-center text-slate-300">📧 ekundayoolumide1@gmail.com</div>
+      </div>
+
+      <div class="flex justify-center space-x-6">
+        <button
+          (click)="scrollToSection('contact')"
+          class="px-8 py-4 bg-gradient-to-r from-blue-600 to-emerald-600 rounded-lg font-semibold hover:from-blue-700 hover:to-emerald-700 transition-all duration-300 transform hover:scale-105"
+        >
+          Get In Touch
+        </button>
+        <button
+          (click)="scrollToSection('experience')"
+          class="px-8 py-4 border border-slate-600 rounded-lg font-semibold hover:bg-slate-800 transition-all duration-300"
+        >
+          View Work
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="py-20 px-6">
+    <div class="max-w-6xl mx-auto">
+      <h2 class="text-4xl font-bold text-center mb-16">
+        <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-emerald-400">
+          About Me
+        </span>
+      </h2>
+
+      <div class="grid md:grid-cols-2 gap-12 items-center">
+        <div>
+          <p class="text-lg text-slate-300 leading-relaxed mb-6">
+            {{profileDetails.details}}
+          </p>
+          <div class="grid grid-cols-2 gap-4">
+            <div class="bg-slate-800/50 p-4 rounded-lg">
+              <div class="text-2xl font-bold text-blue-400 mb-1">5+</div>
+              <div class="text-slate-300">Years Experience</div>
+            </div>
+            <div class="bg-slate-800/50 p-4 rounded-lg">
+              <div class="text-2xl font-bold text-emerald-400 mb-1">{{ experiences.length }}+</div>
+              <div class="text-slate-300">Major Projects</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-slate-800/30 p-8 rounded-2xl">
+          <h3 class="text-2xl font-semibold mb-6 text-blue-400">Education</h3>
+          <div class="space-y-4">
+            <div>
+              <h4 class="font-semibold text-white">BSc Statistics</h4>
+              <p class="text-slate-300">Olabisi Onabanjo University</p>
+              <p class="text-slate-400">Sept 2016 – Feb 2020</p>
+            </div>
+          </div>
+
+          <h3 class="text-2xl font-semibold mb-6 mt-8 text-emerald-400">Certifications</h3>
+          <div class="space-y-3">
+            @for (cert of certifications; track cert) {
+            <div class="flex items-start">
+              <span class="mr-3 mt-1 text-emerald-400">🏆</span>
+              <span class="text-slate-300 text-sm">{{ cert }}</span>
+            </div>
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Experience Section -->
+  <section id="experience" class="py-20 px-6 bg-slate-800/20">
+    <div class="max-w-6xl mx-auto">
+      <h2 class="text-4xl font-bold text-center mb-16">
+        <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-emerald-400">
+          Professional Experience
+        </span>
+      </h2>
+
+      <div class="space-y-8">
+        @for (exp of experiences; track exp.company) {
+        <div
+          class="bg-slate-800/30 rounded-2xl p-8 hover:bg-slate-800/40 transition-all duration-300"
+        >
+          <h3 class="text-2xl font-bold text-white mb-2">{{ exp.role }}</h3>
+          <h4 class="text-xl text-blue-400 mb-2">{{ exp.company }} ({{ exp.type }})</h4>
+          <p class="text-slate-400">📅 {{ exp.period }}</p>
+
+          <div class="mb-6">
+            <h5 class="font-semibold text-emerald-400 mb-3">Key Achievements:</h5>
+            <ul class="space-y-2">
+              @for (highlight of exp.highlights; track highlight) {
+              <li class="flex items-start text-slate-300">➡️ {{ highlight }}</li>
+              }
+            </ul>
+          </div>
+
+          <h5 class="font-semibold text-emerald-400 mb-3">Technologies:</h5>
+          <div class="flex flex-wrap gap-2">
+            @for (tech of exp.tech; track tech) {
+            <span class="px-3 py-1 bg-slate-700/50 rounded-full text-sm text-slate-300">
+              {{ tech }}
+            </span>
+            }
+          </div>
+        </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills Section -->
+  <section id="skills" class="py-20 px-6">
+    <div class="max-w-6xl mx-auto">
+      <h2 class="text-4xl font-bold text-center mb-16">
+        <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-emerald-400">
+          Technical Skills
+        </span>
+      </h2>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        @for (entry of (skills | keyvalue); track entry.key) {
+        <div
+          class="bg-slate-800/30 p-8 rounded-2xl hover:bg-slate-800/40 transition-all duration-300"
+        >
+          <h3 class="text-xl font-semibold mb-6 text-white capitalize">{{ entry.key }}</h3>
+          <div class="space-y-3">
+            @for (skill of entry.value; track skill) {
+            <div class="flex items-center justify-between">
+              <span class="text-slate-300">{{ skill }}</span>
+              <div class="w-20 bg-slate-700 rounded-full h-2">
+                <div
+                  class="bg-gradient-to-r from-blue-500 to-emerald-500 h-2 rounded-full"
+                  [style.width.%]="85 + getRandom() * 15"
+                ></div>
+              </div>
+            </div>
+            }
+          </div>
+        </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="py-20 px-6 bg-slate-800/20">
+    <div class="max-w-4xl mx-auto text-center">
+      <h2 class="text-4xl font-bold mb-8">
+        <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-emerald-400">
+          Let's Work Together
+        </span>
+      </h2>
+      <p class="text-xl text-slate-300 mb-12 leading-relaxed">
+        I'm always interested in new opportunities...
+      </p>
+
+      <div class="grid md:grid-cols-3 gap-8 mb-12">
+        <div class="bg-slate-800/30 p-8 rounded-2xl hover:bg-slate-800/40">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="32"
+            height="32"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="lucide lucide-phone mx-auto mb-4 text-blue-400"
+          >
+            <path
+              d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"
+            ></path>
+          </svg>
+          <h3 class="font-semibold text-white mb-2">Phone</h3>
+          <p class="text-slate-300">+234 81 877 321 78</p>
+          <p class="text-slate-300">+234 81 181 597 53</p>
+        </div>
+        <div class="bg-slate-800/30 p-8 rounded-2xl hover:bg-slate-800/40">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="32"
+            height="32"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="lucide lucide-mail mx-auto mb-4 text-emerald-400"
+          >
+            <rect width="20" height="16" x="2" y="4" rx="2"></rect>
+            <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+          </svg>
+          <h3 class="font-semibold text-white mb-2">Email</h3>
+          <p class="text-slate-300">
+            <a href="mailto:ekundayoolumide1@gmail.com">ekundayoolumide1@gmail.com</a>
+          </p>
+        </div>
+        <div class="bg-slate-800/30 p-8 rounded-2xl hover:bg-slate-800/40">
+          <a href="https://www.linkedin.com/in/oluekundayo1" target="_blank">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="32"
+              height="32"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="lucide lucide-linkedin mx-auto mb-4 text-blue-400"
+            >
+              <path
+                d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"
+              ></path>
+              <rect width="4" height="12" x="2" y="9"></rect>
+              <circle cx="4" cy="4" r="2"></circle>
+            </svg>
+            <h3 class="font-semibold text-white mb-2">LinkedIn</h3>
+          </a>
+          <a
+            href="https://www.linkedin.com/in/oluekundayo1"
+            class="text-slate-300 hover:text-blue-400 transition-colors"
+            target="_blank"
+            rel="noopener noreferrer"
+            >View Profile
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="lucide lucide-external-link inline ml-1"
+            >
+              <path d="M15 3h6v6"></path>
+              <path d="M10 14 21 3"></path>
+              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path></svg
+          ></a>
+        </div>
+      </div>
+
+      <div class="flex justify-center">
+        <a
+          href="mailto:ekundayoolumide1@gmail.com"
+          class="px-8 py-4 bg-gradient-to-r from-blue-600 to-emerald-600 rounded-lg font-semibold hover:from-blue-700 hover:to-emerald-700 transition-all duration-300 transform hover:scale-105 inline-flex items-center"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="lucide lucide-mail mr-2"
+          >
+            <rect width="20" height="16" x="2" y="4" rx="2"></rect>
+            <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+          </svg>
+
+          Send Message
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="py-8 px-6 border-t border-slate-700">
+    <div class="max-w-6xl mx-auto text-center">
+      <p class="text-slate-400">© {{getYear()}} Olumide Ekundayo. Built with Angular & Tailwind CSS.</p>
+    </div>
+  </footer>
+</div>
